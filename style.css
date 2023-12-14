@@ -1,0 +1,63 @@
+
+.pic {
+    border: 1px solid chocolate;
+    width: 200px;
+    display: block;
+    float: left;
+}
+.pic img{
+    width: 200px;
+    margin: 10px;
+}
+.pic input {
+    margin: 10px;
+}
+.title {
+    text-align: center;
+    clear: both;
+}
+.title:hover {
+   color: chocolate;
+}
+.title1{
+    text-align: center;
+    width: 100%;
+}
+.dices {
+    display: flex;  
+    background-color: chocolate;
+    width: 100%;
+    justify-content: right; 
+}
+.result {
+    float: left;
+   
+  
+}
+.start input {
+    
+    height: 4.125rem;
+    padding: 0 1.25em;
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    outline: none;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.start input:hover{
+   background-color: chocolate;
+   font-size: xx-large;
+}
+.start button {
+    
+    background-color: #088178;
+    color: #fff;
+    white-space: nowrap;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.win {
+    background-color: chocolate;
+}

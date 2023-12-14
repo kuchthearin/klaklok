@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KlaKlok</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body onload="getInitialAmount()"> 
+    <script>
+        var min = 1;
+        var max = 6;
+        var cmd = true;
+        var iv;
+        var amount = 0;
+        var dice1;
+        var dice2;
+        var dice3;
+        function _(obj)
+        {
+          return document.getElementById(obj);
+        }
+        function checkResult (dice)
+        {
+          var result = 0;
+          // alert (dice);
+          switch(dice)
+          {
+            case "kk1":
+              result = parseFloat(_("txtkk1").value);
+              break;
+            case "kk2":
+             result = parseFloat(_("txtkk2").value);
+              break;
+            case "kk3":
+             result = parseFloat(_("txtkk3").value);
+              break;
+            case "kk4":
+             result = parseFloat(_("txtkk4").value);
+              break;
+            case "kk5.png":
+             result = parseFloat(_("txtkk5").value);
+              break;
+            case "kk6.png":
+             result = parseFloat(_("txtkk6").value);
+              break;
+          }
+          return result;
+        }
+        function checkWin()
+        {
+          var leng = _("dice1") .src.length;
+           dice1 = _("dice1") .src.substring(leng-7, leng-4);
+           dice2 = _("dice2") .src.substring(leng-7, leng-4);
+           dice3 = _("dice3") .src.substring(leng-7, leng-4);
+          var result = 0;
+          result = result + checkResult (dice1);
+          result = result + checkResult (dice2);
+          result = result + checkResult (dice3);
+          amount = amount + result;
+          amount = amount - deductMoney(dice1, dice2, dice3);
+          _("money").innerHTML = amount;
+          clearWin();
+          document.getElementById(dice1).style.background = "red";
+          document.getElementById(dice2).style.background = "red";
+          document.getElementById(dice3).style.background = "red";
+
+        }
+        function deductMoney(dice1, dice2, dice3)
+        {
+          var totallost = 0;
+          for(i=1;i<=6;i++)
+          {
+            var dname = "kk" + i;
+            if(dname != dice1 || dname != dice2 || dname != dice3)
+            {
+                 totallost += parseFloat(document.getElementById("txtkk"+i).value);
+            }
+          }
+          return totallost;
+        }
+        function clearWin()
+        {
+          for(i=1;i<=6;i++)
+          document.getElementById("kk" +i) .style.background="white";
+        }
+        function checkMoney2Play()
+        {
+          var kk1 = parseFloat(_("txtkk1").value);
+          var kk2 = parseFloat(_("txtkk2").value);
+          var kk3 = parseFloat(_("txtkk3").value);
+          var kk4 = parseFloat(_("txtkk4").value);
+          var kk5 = parseFloat(_("txtkk5").value);
+          var kk6 = parseFloat(_("txtkk6").value);
+          var total = kk1+kk2+kk3+kk4+kk5+kk6;
+          if(total > amount)
+             {
+              return false;
+             }
+          else
+             {
+              return true;  
+             }  
+        }
+        function getInitialAmount ()
+        {
+          amount = parseFloat(prompt ("សូមបញ្ចូលចំនួនលុយ!"));
+          document.getElementById("money").innerHTML = amount;
+        }
+         function shakingDices()
+         {
+            dice1 = Math.round(Math.random() * (max - min) + min);
+            dice2 = Math.round(Math.random() * (max - min) + min);
+            dice3 = Math.round(Math.random() * (max - min) + min);
+           document.getElementById("dice1") .src = "img/kk" + dice1 + ".png";
+           document.getElementById("dice2") .src = "img/kk" + dice2 + ".png";
+           document.getElementById("dice3") .src = "img/kk" + dice3 + ".png";
+           console.log(dice1);
+           console.log(dice2);
+           console.log(dice3);
+
+         }
+         function startShaking ()  
+         {
+            if(checkMoney2Play())
+            {
+            if (cmd)
+           {
+            iv = setInterval(function (){shakingDices()}, 100);
+            cmd = false;
+            document.getElementById("mybut").value = "ឈប់";
+           }
+           else 
+           {
+            clearInterval (iv);
+            cmd = true;
+            document.getElementById("mybut").value = "ក្រឡុក";
+            checkWin ();
+           }
+          }
+           else{
+            alert ("There is no sufficient amount of money to play")
+           }
+         }
+         
+    </script>
+     <div class="start">
+      <input type="button" value="ក្រឡុក" id="mybut" onclick="startShaking()" />
+     </div>
+     <br/>
+     <div class="dices">
+         <img src="img/kk1.png" id="dice1" />
+         <img src="img/kk1.png" id="dice2" />
+         <img src="img/kk1.png" id="dice3" />
+     </div>
+     <div class="result">
+           <h1>Total Money: <span id="money">0</span></h1>
+     </div>
+
+     <h1 class="title">សូមចាក់តាមសប្បាយ</h1>
+     <h2 class="title1">ហាមលេងល្បែងសុីសង</h2>
+     <div class="pic" id="kk1">
+      <img src="img/kk1.png" />
+      <input type="number" id="txtkk1" value="0" min="0" step="500" />
+     </div>
+     <div class="pic" id="kk2">
+      <img src="img/kk2.png" />
+      <input type="number" id="txtkk2" value="0" min="0" step="500" />
+     </div>
+     <div class="pic" id="kk3">
+      <img src="img/kk3.png" />
+      <input type="number" id="txtkk3" value="0" min="0" step="500" />
+     </div>
+     <div class="pic" id="kk4">
+      <img src="img/kk4.png" />
+      <input type="number" id="txtkk4" value="0" min="0" step="500" />
+     </div>
+     <div class="pic" id="kk5">
+      <img src="img/kk5.png" />
+      <input type="number" id="txtkk5" value="0" min="0" step="500" />
+     </div>
+     <div class="pic" id="kk6">
+      <img src="img/kk6.png" />
+      <input type="number" id="txtkk6" value="0" min="0" step="500" />
+     </div>
+</body>
+</html>
